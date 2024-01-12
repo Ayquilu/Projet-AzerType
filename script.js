@@ -1,34 +1,50 @@
 console.log("Hello World");
 
-const listDePhrases = [
+const listeDePhrases = [
   "Pas de panique",
   "La vie, l'univers et le reste",
   "Merci pour le poisson",
 ];
-const listDeMots = ["Cachalot", "Pétunia", "Serviette"];
-let score = 0;
+const listeDeMots = ["Cachalot", "Pétunia", "Serviette"];
 
-let userPrompt = prompt("Voulez-vous jouer avec des phrases ou des mots?");
-while (userPrompt !== "mots" && userPrompt !== "phrases") {
-  userPrompt = prompt("Voulez-vous jouer avec des phrases ou des mots?");
+
+
+function afficherScore(score, total) {
+  console.log("Votre score est de " + score + " sur " + total);
 }
 
-if (prompt === "phrases") {
-  for (let i = 0; i < 3; i++) {
-    let phraseUtilisateur = prompt("Entrez la phrase: " + listDePhrases[i]);
+function choixJoueur() {
+  let choix = prompt ("Voulez-vous jouer avec des phrases ou des mots?");
+  while (choix !== "mots" && choix !== "phrases") {
+    choix = prompt("Voulez-vous jouer avec des phrases ou des mots?");
+  }
+  return choix;
+}
 
-    if (phraseUtilisateur === listDePhrases[i]) {
+function boucleDeJeu (listePropositions) {
+  let score = 0;
+  for (let i = 0; i < listePropositions.length; i++) {
+    let proposition = prompt("Entrez la proposition: " + listePropositions[i]);
+
+    if (proposition === listePropositions[i]) {
       score++;
     }
   }
-  console.log("Votre score est de " + score + "sur " + listDePhrases.length);
-} else if (prompt === "mots") {
-  for (let i = 0; i < 3; i++) {
-    let motUtilisateur = prompt("Entrez le mot: " + listDeMots[i]);
-
-    if (motUtilisateur === listDeMots[i]) {
-      score++;
-    }
-  }
-  console.log("Votre score est de " + score + "sur " + listDeMots.length);
+  return score;
 }
+
+function jeu () {
+  let choix = choixJoueur();
+  score = 0;
+  let total = 0;
+  if (choix === "phrases") {
+    score = boucleDeJeu(listeDePhrases);
+    total = listeDePhrases.length;
+  } else if (choix === "mots") {
+    score = boucleDeJeu(listeDeMots);
+    total = listeDeMots.length;
+  }
+  afficherScore(score, total);
+}
+
+jeu();
